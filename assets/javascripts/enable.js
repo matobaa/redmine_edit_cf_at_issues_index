@@ -25,9 +25,11 @@ document.addEventListener("DOMContentLoaded", () => {
       cf_id = Array.from(this.classList).find(e => e.startsWith("cf_"))?.slice(3);
       issue_id = this.parentNode?.id?.slice(6);
       value = this.innerText || "__none__";
+      home = document.querySelector("#top-menu .home")?.getAttribute("href") || ""
+      if (home.endsWith('/')) home = home.slice(0,-1)
       link = document.createElement("a");
       link.setAttribute("data-method", "post");
-      link.href = `/issues/bulk_update?back_url=${window.location.pathname}&ids[]=${issue_id}&issue[custom_field_values][${cf_id}]=${value}`;
+      link.href = `${home}/issues/bulk_update?back_url=${window.location.pathname}&ids[]=${issue_id}&issue[custom_field_values][${cf_id}]=${value}`;
       this.appendChild(link);
       link.click();
     });
